@@ -35,3 +35,20 @@
 - 基本的な Azure ポータルの操作知識
 - 基本的な Windows サーバー管理の知識
 - PowerShell の基本的な知識
+
+## 課金に関する注意事項
+
+このハンズオンラボでは、以下の Azure リソースを使用します。これらのリソースには費用が発生する可能性があります：
+
+1. **仮想マシン（VM）**: ラボで使用する Windows Server 仮想マシン（約5時間の実行で約$5-10）
+2. **Azure Arc**: Azure Arc 接続マシンの料金（無料枠あり、詳細は[こちら](https://azure.microsoft.com/ja-jp/pricing/details/azure-arc/))
+3. **Microsoft Defender for Servers**: Defender for Servers Plan 2（約$0.75/サーバー/日）
+4. **Azure Sentinel**: Log Analytics ワークスペースの取り込みとアラート（約$2.30/GB、最初の5GBは無料）
+
+### コスト管理のためのヒント
+
+1. **自動シャットダウン**: ラボで作成するVMに自動シャットダウンを設定して、不要な実行時間を削減します
+2. **リソースのクリーンアップ**: ラボ完了後、[モジュール 6](modules/module6/README.md) の手順に従ってすべてのリソースを削除してください
+3. **トライアルの利用**: 無料トライアルや Azure クレジットをお持ちの場合は、それらを活用してください
+
+> **注意**: 上記の価格は概算であり、実際の料金は利用状況や契約条件によって異なる場合があります。最新の料金情報については、[Azure 料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。

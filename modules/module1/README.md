@@ -8,6 +8,21 @@
 - 必要な Azure リソースプロバイダーの登録
 - オンプレミス環境（Lab VM）のセットアップ
 
+## 課金に関する注意事項
+
+このハンズオンラボでは、以下のAzureリソースを使用します。これらのリソースには費用が発生します：
+
+- **Windows Server 仮想マシン** (Standard_D2s_v3): 約¥100～150/時間
+- **Microsoft Defender for Servers**: 約¥10-12/サーバー/日（Plan 2）
+- **Azure Sentinel / Log Analytics**: 約¥250/GB（データ取り込み）
+
+**コスト削減のポイント**:
+- ラボが完了したら、すぐにリソースをクリーンアップしてください
+- VM作成時に自動シャットダウンを設定してください
+- 不要な時間帯はVMを停止状態にしてください
+
+詳しい料金情報については、[Azure料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。
+
 ## タスク 1: Azure サブスクリプションの確認
 
 1. [Azure ポータル](https://portal.azure.com)にサインインします。
