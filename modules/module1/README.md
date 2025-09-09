@@ -6,27 +6,28 @@
 
 - Azure サブスクリプションの確認
 - 必要な Azure リソースプロバイダーの登録
-- オンプレミス環境のセットアップ（2つの選択肢）
+- オンプレミス環境のセットアップ（2 つの選択肢）
   - オプション A: Azure VM を使用したシミュレーション環境
   - オプション B: 実際のオンプレミス仮想マシンの使用
 
 ## 課金に関する注意事項
 
-このハンズオンラボでは、以下のAzureリソースを使用します。これらのリソースには費用が発生します：
+このハンズオンラボでは、以下の Azure リソースを使用します。これらのリソースには費用が発生します：
 
-- **Windows Server 仮想マシン** (Standard_D2s_v3): 約¥100～150/時間
-[Azure Virtual Machine 価格](https://azure.microsoft.com/ja-jp/pricing/details/virtual-machines/windows/?msockid=300b641468f0694b2ee6716469a968e1)
-- **Microsoft Defender for Servers**: 約¥10-12/サーバー/日（Plan 2）
-[Microsoft Defender for Servers 価格](https://azure.microsoft.com/ja-jp/pricing/details/defender-for-cloud/?msockid=300b641468f0694b2ee6716469a968e1)
-- **Azure Sentinel / Log Analytics**: 約¥250/GB（データ取り込み）
-[Microsoft Sentinel 価格](https://www.microsoft.com/ja-jp/security/pricing/microsoft-sentinel/?msockid=300b641468f0694b2ee6716469a968e1)
+- **Windows Server 仮想マシン** (Standard_D2s_v3): 約 ¥100 ～ 150/時間
+  [Azure Virtual Machine 価格](https://azure.microsoft.com/ja-jp/pricing/details/virtual-machines/windows/?msockid=300b641468f0694b2ee6716469a968e1)
+- **Microsoft Defender for Servers**: 約 ¥10-12/サーバー/日（Plan 2）
+  [Microsoft Defender for Servers 価格](https://azure.microsoft.com/ja-jp/pricing/details/defender-for-cloud/?msockid=300b641468f0694b2ee6716469a968e1)
+- **Azure Sentinel / Log Analytics**: 約 ¥250/GB（データ取り込み）
+  [Microsoft Sentinel 価格](https://www.microsoft.com/ja-jp/security/pricing/microsoft-sentinel/?msockid=300b641468f0694b2ee6716469a968e1)
 
 **コスト削減のポイント**:
-- ラボが完了したら、すぐにリソースをクリーンアップしてください
-- VM作成時に自動シャットダウンを設定してください
-- 不要な時間帯はVMを停止状態にしてください
 
-詳しい料金情報については、[Azure料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。
+- ラボが完了したら、すぐにリソースをクリーンアップしてください
+- VM 作成時に自動シャットダウンを設定してください
+- 不要な時間帯は VM を停止状態にしてください
+
+詳しい料金情報については、[Azure 料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。
 
 ## タスク 1: Azure サブスクリプションの確認
 
@@ -54,7 +55,8 @@
 
 ## タスク 3: オンプレミス環境のセットアップ
 
-このラボでは、以下の2つの方法からお好みの方法を選択できます：
+このラボでは、以下の 2 つの方法からお好みの方法を選択できます：
+
 - **オプション A**: Azure VM を使用してオンプレミス環境をシミュレーション（推奨）
 - **オプション B**: 実際のオンプレミス仮想マシンを使用
 
@@ -80,10 +82,12 @@
    - **受信ポートを選択**: RDP (3389)
 
 4. 「**ネットワーク**」タブで、以下を確認します：
+
    - 新規の仮想ネットワークが作成されること
    - パブリック IP が割り当てられること
 
 5. 「**管理**」タブで、以下を設定します：
+
    - **自動シャットダウン**: 有効
    - **シャットダウン時刻**: ラボ終了予定時刻
 
@@ -123,7 +127,7 @@
 
 ## タスク 4: PowerShell 実行ポリシーの設定
 
-どちらのオプションを選択した場合も、以下の手順でPowerShell実行ポリシーを設定します。
+どちらのオプションを選択した場合も、以下の手順で PowerShell 実行ポリシーを設定します。
 
 1. スタートメニューを右クリックし、「**Windows PowerShell (管理者)**」を選択します。
 2. 次のコマンドを実行して、PowerShell の実行ポリシーを変更します：
