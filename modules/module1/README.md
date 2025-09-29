@@ -113,7 +113,7 @@
    - **地域**: お近くのリージョン
    - **可用性オプション**: インフラストラクチャ冗長は必要ありません
    - **セキュリティの種類**: Standard
-   - **イメージ**: Windows Server 2019 Datacenter - x64 Gen2
+   - **イメージ**: Windows Server 2016 Datacenter - x64 Gen2
    - **サイズ**: Standard_D2s_v3（2 vCPU、8 GiB メモリ）または同等
    - **ユーザー名**: 任意
    - **パスワード**: 任意（複雑なパスワードを設定し、メモしておいてください）
@@ -146,15 +146,20 @@
 
 8. デプロイが完了するまで待ちます（約 5 分程度）。
 
+拡張機能削除、エージェントのアンインストール
+https://zenn.dev/microsoft/articles/zenn-arc-enabledservers-instruction
+https://www.nobtak.com/entry/arc02
+
 #### Azure VM への接続とセットアップ
 
-1. デプロイが完了したら、仮想マシン「OnPremServer」の概要ページに移動します。
-2. 「**接続**」→「**RDP**」をクリックします。
-3. 「**RDP ファイルのダウンロード**」をクリックし、ダウンロードしたファイルを開きます。
-4. 接続先の身元を確認するダイアログが表示されたら、「**接続**」をクリックします。
-5. ユーザー名（arcadmin）とパスワードを入力してサインインします。
-6. サーバーマネージャーが自動的に起動したら、「**ローカルサーバー**」をクリックします。
-7. 「**IE セキュリティ強化の構成**」の設定で「**オフ**」をクリックします（管理者のみ）。
+1. デプロイが完了したら、作成した仮想マシンの概要ページに移動します。
+2. 「**接続**」→「**Bastion**」をクリックします。
+3. 仮想マシン作成時に設定したユーザ名とパスワードを入力し、「**接続**」をクリックします。
+
+![仮想マシンの接続](../../images/module1/connect_virtual_machine.png)
+
+4. サーバーマネージャーが自動的に起動したら、「**ローカルサーバー**」をクリックします。
+5. 「**IE セキュリティ強化の構成**」の設定で「**オフ**」をクリックします（管理者のみ）。
 
 ### オプション B: 既存のオンプレミスサーバー環境の確認
 
@@ -220,7 +225,7 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders
 
 2. サーバーを再起動して、設定を適用します。
 
-## タスク 5: 通信要件の確認
+## タスク 4: 通信要件の確認
 
 Azure Arc エージェントが正常に動作するには、特定のエンドポイントへの通信が必要です。これらのエンドポイントへの通信が可能であることを確認してください。
 
@@ -257,25 +262,7 @@ Azure Arc エージェントが正常に動作するには、特定のエンド�
 
 \*リソース管理のプライベートリンクも構成されていない限り
 
-### 通信テスト
-
-※ここは削除予定
-
-以下のコマンドを実行して、主要なエンドポイントへの接続を確認します：
-
-```powershell
-# 主要なエンドポイントへの接続テスト
-Write-Host "Azure Resource Manager への接続テスト中..." -ForegroundColor Cyan
-Test-NetConnection -ComputerName management.azure.com -Port 443
-Write-Host "Azure AD 認証サービスへの接続テスト中..." -ForegroundColor Cyan
-Test-NetConnection -ComputerName login.microsoftonline.com -Port 443
-Write-Host "Azure Service Bus への接続テスト中..." -ForegroundColor Cyan
-Test-NetConnection -ComputerName servicebus.windows.net -Port 443
-```
-
-すべてのテストで `TcpTestSucceeded : True` が表示されることを確認してください。いずれかのテストが失敗した場合は、ネットワーク管理者に連絡し、必要なエンドポイントへのアクセスが許可されているか確認してください。
-
-## タスク 4: PowerShell 実行ポリシーの設定
+## タスク 5: PowerShell 実行ポリシーの設定
 
 1. スタートメニューを右クリックし、「**Windows PowerShell (管理者)**」を選択します。
 2. 次のコマンドを実行して、PowerShell の実行ポリシーを変更します：
