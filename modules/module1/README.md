@@ -146,10 +146,6 @@
 
 8. デプロイが完了するまで待ちます（約 5 分程度）。
 
-拡張機能削除、エージェントのアンインストール
-https://zenn.dev/microsoft/articles/zenn-arc-enabledservers-instruction
-https://www.nobtak.com/entry/arc02
-
 #### Azure VM への接続とセットアップ
 
 1. デプロイが完了したら、作成した仮想マシンの概要ページに移動します。
@@ -160,6 +156,30 @@ https://www.nobtak.com/entry/arc02
 
 4. サーバーマネージャーが自動的に起動したら、「**ローカルサーバー**」をクリックします。
 5. 「**IE セキュリティ強化の構成**」の設定で「**オフ**」をクリックします（管理者のみ）。
+
+#### Azure VM の事前準備
+
+1. 拡張機能のアンインストール
+   対象の Azure VM に拡張機能がインストールされていたらアンインストールをする。
+
+![Azure VM の拡張機能アンインストール](../../images/module1/check_vm_extension.png)
+
+2. ゲストエージェントの無効化
+
+```powershell
+Set-Service WindowsAzureGuestAgent -StartupType Disabled -Verbose
+Stop-Service WindowsAzureGuestAgent -Force -Verbose
+```
+
+3. Azure IDMS エンドポイントへのアクセスをブロック
+
+```powershell
+New-NetFirewallRule -Name BlockAzureIMDS -DisplayName "Block access to Azure IMDS" -Enabled True -Profile Any -Direction Outbound -Action Block -RemoteAddress 169.254.169.254
+```
+
+4. 上記コマンド実行後、ファイアウォールルールが作成されていることを確認する
+
+![Azure VM のFW rule の確認](../../images/module1/check_fw_rule.png)
 
 ### オプション B: 既存のオンプレミスサーバー環境の確認
 
