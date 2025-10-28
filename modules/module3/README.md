@@ -14,13 +14,14 @@
 Microsoft Defender for Servers には以下のプランがあります：
 
 1. **Plan 1（基本機能）**: $4.906/サーバー/月
+
    - Defender for endpoint と統合し、EDR（検出と対応）を中心とした基本保護を提供
 
 2. **Plan 2（高度な機能）**: $14.60/サーバー/月
    - Plan 1 のすべての機能
    - エージェントレス スキャン（脆弱性・マルウェア・シークレットなど）
-   - コンプライアンス評価（規制基準やMicrosoftクラウドセキュリティベンチマーク対応）
-   - OS更新・構成評価、ファイル整合性監視、Just-In-Timeアクセス制御、ネットワークマップ
+   - コンプライアンス評価（規制基準や Microsoft クラウドセキュリティベンチマーク対応）
+   - OS 更新・構成評価、ファイル整合性監視、Just-In-Time アクセス制御、ネットワークマップ
    - Defender Vulnerability Management Premium 機能＋特定データ型の無料インジェスト枠
 
 このラボでは **Plan 2** を使用します。
@@ -38,27 +39,17 @@ Microsoft Defender for Servers には以下のプランがあります：
 
 ![Defender プランの有効化](../../images/module3/defender-plans.png)
 
-## タスク 2: Azure Arc 接続サーバーへの Defender エージェントのインストール
-
-1. Microsoft Defender for Cloud の左側のメニューから「**インベントリ**」をクリックします。
-2. フィルタを設定して「リソースの種類」→「マシン - Azure Arc」を選択します。
-3. 前のモジュールで接続した「OnPremServer」を見つけて選択します。
-4. 上部にある「**Defender エージェントのインストール**」をクリックします。
-5. 表示される確認ダイアログで「**インストール**」をクリックします。
-6. インストールが完了するまで待ちます（約 5-10 分程度）。
-
-## タスク 3: Defender エージェントのインストール状態の確認
+## タスク 2: Defender エージェントのインストール状態の確認
 
 1. Azure ポータルで「**Azure Arc**」→「**マシン - Azure Arc**」に移動します。
-2. 「OnPremServer」をクリックします。
-3. 左側のメニューから「**拡張機能**」をクリックします。
+2. 対象の Arc 対応サーバをクリックします。
+3. 左側のメニューの設定から「**拡張機能**」をクリックします。
 4. 次の拡張機能がインストールされていることを確認します：
-   - Azure Monitor エージェント
-   - Microsoft Defender for Cloud エージェント
+   - MDE.Windows
 
 ![Defender エージェントの確認](../../images/module3/defender-extensions.png)
 
-## タスク 4: 脆弱性評価の設定
+## タスク 3: 脆弱性評価の設定
 
 Microsoft Defender for Servers Plan 2 には、脆弱性評価スキャナーが含まれています。これを設定します。
 
@@ -69,7 +60,7 @@ Microsoft Defender for Servers Plan 2 には、脆弱性評価スキャナーが
 5. 「**Microsoft 脆弱性評価**」が選択されていることを確認します。
 6. 「**保存**」をクリックします。
 
-## タスク 5: Defender for Servers のコンプライアンス状態の確認
+## タスク 4: Defender for Servers のコンプライアンス状態の確認
 
 1. Microsoft Defender for Cloud の左側のメニューから「**インベントリ**」をクリックします。
 2. リソースのフィルタを設定して「マシン - Azure Arc」を選択します。
@@ -80,7 +71,7 @@ Microsoft Defender for Servers Plan 2 には、脆弱性評価スキャナーが
 4. サーバーをクリックして詳細ページを開きます。
 5. 「**セキュリティの推奨事項**」タブを確認します。これらの推奨事項は、時間と共に更新されます。
 
-## タスク 6: セキュリティ設定の確認
+## タスク 5: セキュリティ設定の確認
 
 1. Microsoft Defender for Cloud の左側のメニューから「**推奨事項**」をクリックします。
 2. フィルタを設定して「リソースの種類」→「マシン - Azure Arc」を選択します。
