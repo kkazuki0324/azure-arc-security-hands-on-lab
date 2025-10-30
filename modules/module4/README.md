@@ -17,13 +17,11 @@
 
    - [Azure Arc のドキュメント](https://docs.microsoft.com/ja-jp/azure/azure-arc/)
    - [Microsoft Defender for Cloud のドキュメント](https://docs.microsoft.com/ja-jp/azure/defender-for-cloud/)
-   - [Azure Sentinel のドキュメント](https://docs.microsoft.com/ja-jp/azure/sentinel/)
 
 2. **トレーニング**:
 
    - [Azure Arc に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=azure%20arc)
    - [Microsoft Defender for Cloud に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=defender%20for%20cloud)
-   - [Azure Sentinel に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=azure%20sentinel)
 
 3. **ブログとリソース**:
    - [Azure ブログ - Azure Arc](https://azure.microsoft.com/ja-jp/blog/topics/azure-arc/)
