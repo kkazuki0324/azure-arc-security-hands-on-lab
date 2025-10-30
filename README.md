@@ -28,6 +28,7 @@
 4. **[モジュール 4](modules/module4/README.md)**: クリーンアップ
 5. **[オプションモジュール](modules/optional/README.md)**: Azure Arc 対応サーバーや Azure VM の情報を Power BI で一元可視化
 
+## 対象者
 - インフラストラクチャ管理者
 - セキュリティ管理者
 - クラウドアーキテクト
