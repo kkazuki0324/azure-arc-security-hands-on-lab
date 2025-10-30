@@ -39,3 +39,7 @@
 4. 各タブを確認します。
 
 ![タブ](../../images/optional/tab.png)
+
+## 参考
+
+[Jumpstart を搭載した Arc Insights PBI ダッシュボード](https://jumpstart.azure.com/azure_jumpstart_drops?drop=Arc%20Insights%20PBI%20Dashboards%20Powered%20by%20Jumpstart&fs=true)
