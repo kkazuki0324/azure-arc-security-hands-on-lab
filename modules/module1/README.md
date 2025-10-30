@@ -21,8 +21,6 @@
   [Azure Virtual Machine 価格](https://azure.microsoft.com/ja-jp/pricing/details/virtual-machines/windows/?msockid=300b641468f0694b2ee6716469a968e1)
 - **Microsoft Defender for Servers**: $14.60/サーバー/日（Plan 2）
   [Microsoft Defender for Servers 価格](https://azure.microsoft.com/ja-jp/pricing/details/defender-for-cloud/?msockid=300b641468f0694b2ee6716469a968e1)
-- **Azure Sentinel / Log Analytics**: 約 $6.24/GB（データ取り込み）
-  [Microsoft Sentinel 価格](https://www.microsoft.com/ja-jp/security/pricing/microsoft-sentinel/?msockid=300b641468f0694b2ee6716469a968e1)
 
 ※2025 年 9 月時点の価格
 
@@ -80,22 +78,21 @@
 ### 前提条件（共通）
 
 - Windows Server がインストールされた仮想マシンまたは物理サーバー（以下のバージョンがサポートされています）
+
   - Windows Server 2022
   - Windows Server 2019
   - Windows Server 2016
   - Windows Server 2012 R2
   - Windows Server 2012
+
     詳細は[こちら](https://learn.microsoft.com/ja-jp/azure/azure-arc/servers/prerequisites#supported-environments)
+
 - 管理者権限を持つアカウント
-- ファイアウォールで以下のポートが開放されていること:
-  - TCP 443 (HTTPS)
-  - TCP 445 (SMB)
 
 > **注意**: Windows Server 2012/2012 R2 を使用する場合、以下の追加作業が必要です:
 >
-> - .NET Framework 4.6 以上のインストール
 > - WMF (Windows Management Framework) 5.1 のインストール
-> - TLS 1.2 の有効化
+> - サービススタック更新プログラム（SSU）のインストール
 >
 > これらの設定手順は、タスク 3.1「Windows Server 2012/2012 R2 の追加設定」で説明します。
 
@@ -208,44 +205,27 @@ netsh winhttp set proxy "http://proxy.example.com:8080"
 
 4. 認証が必要なプロキシの場合は、後のモジュールでエージェントのインストール時に認証情報を指定します。
 
-## タスク 3.1: Windows Server 2012/2012 R2 の追加設定
+## タスク 4.1: Windows Server 2012/2012 R2 の追加設定
 
 > **注意**: このタスクは Windows Server 2012 または Windows Server 2012 R2 を使用する場合のみ実行してください。
 
 Windows Server 2012/2012 R2 では、Azure Arc エージェントの要件を満たすために以下の追加設定が必要です：
 
-### .NET Framework 4.6 以上のインストール
-
-1. [Microsoft ダウンロードセンター](https://dotnet.microsoft.com/ja-jp/download/dotnet-framework/net48)から .NET Framework 4.8 をダウンロードします。
-2. ダウンロードしたインストーラー（ndp48-x86-x64-allos-jpn.exe）を実行し、指示に従ってインストールを完了します。
-3. インストール完了後、サーバーを再起動します。
-
 ### Windows Management Framework (WMF) 5.1 のインストール
 
-1. [Microsoft ダウンロードセンター](https://www.microsoft.com/en-us/download/details.aspx?id=54616)から WMF 5.1 をダウンロードします。
-2. ダウンロードしたインストーラー（Win8.1AndW2K12R2-KB3191564-x64.msu）を実行し、指示に従ってインストールを完了します。
-3. インストール完了後、サーバーを再起動します。
+- Azure Arc 用エージェントインストールには、Windows PowerShell 4.0 以降が必要です。現在、PoweShell 4.0 移行を新規で入手するには WMF 5.1 のインストールが必要です。
+- WMF 5.1 を[こちら](https://www.microsoft.com/en-us/download/details.aspx?id=54616)からインストールしてください。
+- インストール完了するには、OS の再起動が必要です。
 
-### TLS 1.2 の有効化
+### サービススタック更新プログラム（SSU）のインストール
 
-1. 管理者として PowerShell を開き、以下のコマンドを実行して TLS 1.2 を有効にします：
+- 2023 年 8 月移行にリリースされたバージョン以降の更新プログラムのいずれかがインストールされていることをご確認ください。
+- 最新の SSU 更新プログラムの詳細については[こちら](https://portal.msrc.microsoft.com/security-guidance/advisory/ADV990001)
+-
 
-```powershell
-# TLS 1.2の有効化
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+※ Azure Arc ESU を構成するためには、OS に応じたサービススタック更新プログラム（SSU）のインストールが必要となります。
 
-# レジストリに永続的に設定
-New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" -Force
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" -Name "Enabled" -Value 1 -PropertyType DWORD -Force
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client" -Name "DisabledByDefault" -Value 0 -PropertyType DWORD -Force
-New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server" -Force
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server" -Name "Enabled" -Value 1 -PropertyType DWORD -Force
-New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server" -Name "DisabledByDefault" -Value 0 -PropertyType DWORD -Force
-```
-
-2. サーバーを再起動して、設定を適用します。
-
-## タスク 4: 通信要件の確認
+## タスク 5: 通信要件の確認
 
 Azure Arc エージェントが正常に動作するには、特定のエンドポイントへの通信が必要です。これらのエンドポイントへの通信が可能であることを確認してください。
 

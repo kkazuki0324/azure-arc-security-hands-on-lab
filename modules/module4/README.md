@@ -1,108 +1,145 @@
-# モジュール 4: テスト攻撃シナリオの実施
+# モジュール 6: クリーンアップと次のステップ
 
-このモジュールでは、セキュリティアラートとインシデントを生成するために、テスト攻撃シナリオを実施します。これらのテストは安全な方法で行われ、実際のシステムに害を与えることはありません。
+このモジュールでは、ラボで使用したリソースをクリーンアップし、Azure Arc と Microsoft Defender for Servers を実際の環境で活用するための次のステップについて説明します。
 
 ## 目標
 
-- テスト攻撃ツールをインストールする
-- 悪意のあるコマンドの実行をシミュレートする
-- 権限昇格のシミュレーション
-- 疑わしいプロセスの実行
+- ラボリソースをクリーンアップする
+- 課金への影響を理解する
+- Azure Arc と Microsoft Defender for Servers の主要な利点を復習する
+- 次のステップとリソースを確認する
 
-## 注意事項
+## タスク 1: ラボリソースのクリーンアップ
 
-**重要**: これらのテストは教育目的のみで実施されます。実際の環境では、これらのコマンドは実行しないでください。
-
-## タスク 1: テストツールのダウンロード
-
-1. OnPremServer への RDP 接続を確認します。
-2. 管理者権限で PowerShell を開きます。
-3. テスト用フォルダを作成します：
-
-```powershell
-New-Item -Path "C:\SecurityTests" -ItemType Directory -Force
-cd C:\SecurityTests
-```
-
-4. Microsoft のテストファイルをダウンロードします：
-
-```powershell
-Invoke-WebRequest -Uri "https://aka.ms/ASI-FakeTools" -OutFile "ASI-FakeTools.zip"
-Expand-Archive -Path "ASI-FakeTools.zip" -DestinationPath "C:\SecurityTests" -Force
-cd C:\SecurityTests\ASI-FakeTools
-```
-
-## タスク 2: Windows Defender のリアルタイム保護を一時的に無効化する
-
-テスト中に Windows Defender が検出をブロックしないように、一時的にリアルタイム保護を無効にします：
-
-```powershell
-Set-MpPreference -DisableRealtimeMonitoring $true
-```
-
-## タスク 3: シミュレーション攻撃 1 - 疑わしいプロセスの実行
-
-1. PowerShell で以下のコマンドを実行して、EICAR テストファイルを作成します：
-
-```powershell
-"X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" | Out-File "C:\SecurityTests\eicar.txt"
-```
-
-2. 次に、Mimikatz の実行をシミュレートするテストファイルを実行します：
-
-```powershell
-.\ASI-MimikatzTest.exe
-```
-
-3. このツールは実際のミミカッツを実行するわけではなく、Microsoft Defender for Servers がミミカッツの実行パターンを検出できるようにシミュレーションします。
-
-## タスク 4: シミュレーション攻撃 2 - 権限昇格の試み
-
-次のコマンドを実行して、権限昇格の試みをシミュレートします：
-
-```powershell
-.\ASI-PrivEscTest.exe
-```
-
-## タスク 5: シミュレーション攻撃 3 - 悪意のあるコマンドの実行
-
-1. 悪意のあるコマンドの実行をシミュレートします：
-
-```powershell
-.\ASI-ProcessInjectionTest.exe
-```
-
-2. レジストリの変更をシミュレートします：
-
-```powershell
-.\ASI-PersistenceTest.exe
-```
-
-## タスク 6: Windows Defender のリアルタイム保護を再度有効化する
-
-テストが完了したら、Windows Defender のリアルタイム保護を再度有効にします：
-
-```powershell
-Set-MpPreference -DisableRealtimeMonitoring $false
-```
-
-## タスク 7: Azure ポータルでのアラートの確認
+ラボが完了したら、不要なコストを避けるためにリソースをクリーンアップします。
 
 1. [Azure ポータル](https://portal.azure.com)にサインインします。
-2. 検索バーに「**Microsoft Defender for Cloud**」と入力し、表示されるサービスをクリックします。
-3. 左側のメニューから「**セキュリティ アラート**」をクリックします。
-4. しばらく待ちます（15〜30 分程度）。テスト攻撃に関連するアラートが表示されるはずです。
+2. 検索バーに「**リソースグループ**」と入力し、表示されるサービスをクリックします。
+3. このラボで作成した以下のリソースグループを選択します：
 
-![Defender のセキュリティアラート](../../images/module4/security-alerts.png)
+   - ArcLab-RG（OnPremServer 仮想マシンを含む）
+   - ArcServers-RG（Azure Arc に接続されたサーバーリソースを含む）
+   - ArcSentinel-RG（Log Analytics ワークスペースと Microsoft Sentinel を含む）
 
-5. いくつかのアラートをクリックして詳細を確認します。以下のようなアラートが表示される可能性があります：
-   - 疑わしいプロセスの実行
-   - 認証情報の窃取の試み
-   - 権限昇格の試み
-   - 永続化メカニズムの検出
+4. 各リソースグループについて、「**リソースグループの削除**」をクリックします。
+5. 確認のために、リソースグループ名を入力し、「**削除**」をクリックします。
+6. すべてのリソースグループが削除されるまで待ちます。
 
-## 次のステップ
+## タスク 2: 課金への影響を理解する
 
-これで、テスト攻撃シナリオが実施され、Microsoft Defender for Servers によってセキュリティアラートが生成されました。次のモジュールでは、Azure Sentinel を使用してこれらのインシデントに対応する方法を学びます。
+このハンズオンラボで使用したサービスと、それらが課金に与える影響について理解しましょう。
 
-[モジュール 5: Azure Sentinel でのインシデント対応](../module5/README.md)に進みます。
+### 仮想マシン（OnPremServer）
+
+- **課金の仕組み**: 仮想マシンは実行時間（計算時間）とストレージ使用量に基づいて課金されます
+- **コスト削減方法**:
+  - 使用しないときは VM を停止（割り当て解除）する
+  - 可能な限り小さい VM サイズを選択する
+  - リザーブドインスタンスを検討する（長期的な使用の場合）
+
+### Microsoft Defender for Servers
+
+- **課金の仕組み**: Defender for Servers Plan 2 は、保護対象のサーバーごとに 1 時間あたりの料金が課金されます
+- **コスト削減方法**:
+  - 必要なサーバーのみに有効化する
+  - 無料の 30 日間試用期間を活用する
+  - 大規模なデプロイメントの場合はエンタープライズ契約を検討する
+
+### Azure Sentinel / Log Analytics
+
+- **課金の仕組み**: データ取り込み量（GB 単位）に基づいて課金されます
+- **コスト削減方法**:
+  - 必要なデータのみを収集するようにデータ収集ルールを設定する
+  - 不要なアラートルールを無効化する
+  - データ保持期間を最適化する（長期保存が必要ない場合は短く設定）
+
+### Azure Arc
+
+- **課金の仕組み**:
+  - 基本的な接続機能は無料
+  - 高度な管理機能や Azure 上のサービスのデプロイには料金が発生
+- **コスト削減方法**:
+  - 必要なサーバーのみを接続する
+  - 使用していない拡張機能を削除する
+
+## タスク 3: 主要な概念の復習
+
+このラボで学んだ主要な概念を復習します：
+
+### Azure Arc の主要な機能
+
+- ハイブリッドおよびマルチクラウド環境の一元管理
+- オンプレミスサーバーの Azure への接続
+- Azure Policy によるコンプライアンス管理
+- Azure Monitor によるモニタリング
+- Azure の機能をオンプレミス環境に拡張
+
+### Microsoft Defender for Servers の利点
+
+- クラウドネイティブの脅威検出と対応
+- サーバーのセキュリティ体制の強化
+- 脆弱性評価と管理
+- クラウドセキュリティポスチャー管理（CSPM）
+- クラウドワークロード保護（CWP）
+
+### Azure Sentinel によるセキュリティ対応
+
+- セキュリティイベントの収集と分析
+- インシデント検出と対応
+- 自動化された脅威ハンティング
+- セキュリティオーケストレーション、自動化、対応（SOAR）機能
+
+## タスク 3: 次のステップとリソース
+
+### 実稼働環境での適用
+
+1. **環境評価の実施**:
+
+   - オンプレミスサーバーのインベントリ
+   - Azure Arc への段階的な移行計画
+   - セキュリティベースラインの確立
+
+2. **大規模デプロイの自動化**:
+
+   - スクリプトによる一括オンボーディング
+   - Azure Policy によるコンプライアンス自動化
+   - Defender for Servers の一括展開
+
+3. **継続的なセキュリティ監視の確立**:
+   - 定期的な脆弱性評価の実施
+   - セキュリティアラートの監視プロセス
+   - インシデント対応プレイブックの作成
+
+### 追加リソース
+
+1. **ドキュメント**:
+
+   - [Azure Arc のドキュメント](https://docs.microsoft.com/ja-jp/azure/azure-arc/)
+   - [Microsoft Defender for Cloud のドキュメント](https://docs.microsoft.com/ja-jp/azure/defender-for-cloud/)
+   - [Azure Sentinel のドキュメント](https://docs.microsoft.com/ja-jp/azure/sentinel/)
+
+2. **トレーニング**:
+
+   - [Azure Arc に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=azure%20arc)
+   - [Microsoft Defender for Cloud に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=defender%20for%20cloud)
+   - [Azure Sentinel に関する Microsoft Learn モジュール](https://docs.microsoft.com/ja-jp/learn/browse/?terms=azure%20sentinel)
+
+3. **ブログとリソース**:
+   - [Azure ブログ - Azure Arc](https://azure.microsoft.com/ja-jp/blog/topics/azure-arc/)
+   - [Azure ブログ - セキュリティ](https://azure.microsoft.com/ja-jp/blog/topics/security/)
+   - [Microsoft Security ブログ](https://www.microsoft.com/security/blog/)
+
+## まとめ
+
+このハンズオンラボでは、以下を学びました：
+
+1. Azure Arc を使用してオンプレミスサーバーをオンボーディングする方法
+2. Microsoft Defender for Servers を有効化して構成する方法
+3. セキュリティイベントを検出する方法
+4. Azure Sentinel を使用してインシデント対応を実施する方法
+
+これらのスキルを活用して、組織のハイブリッドクラウド環境のセキュリティ体制を強化し、最新の脅威から保護することができます。
+
+ご質問やフィードバックがある場合は、講師にお問い合わせください。
+
+ハンズオンラボへの参加、お疲れ様でした！
