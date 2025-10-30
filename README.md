@@ -8,8 +8,6 @@
 
 1. Azure Arc を使用したオンプレミスサーバーのオンボーディング
 2. Microsoft Defender for Servers の有効化と設定
-3. セキュリティインシデントの検知方法
-4. Azure Sentinel を使用したインシデント対応プロセス
 
 ## 実装パターン
 
