@@ -1,6 +1,6 @@
 # Azure Arc と Microsoft Defender for Servers ハンズオンラボ
 
-このハンズオンラボでは、オンプレミス環境にあるサーバーを Azure Arc を使用してオンボーディングし、Microsoft Defender for Servers を適用してセキュリティ監視を設定します。さらに、Azure Sentinel を使用してインシデント対応の方法を学びます。
+このハンズオンラボでは、オンプレミス環境にあるサーバーを Azure Arc を使用してオンボーディングし、Microsoft Defender for Servers を適用してセキュリティ監視を設定します。
 
 ## ラボの目的
 
