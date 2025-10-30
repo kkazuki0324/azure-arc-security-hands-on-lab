@@ -197,14 +197,6 @@ New-NetFirewallRule -Name BlockAzureIMDS -DisplayName "Block access to Azure IMD
 netsh winhttp show proxy
 ```
 
-3. プロキシ設定が表示されることを確認します。表示されない場合は、次のコマンドでプロキシを設定します（プロキシアドレスは環境に合わせて変更してください）:
-
-```powershell
-netsh winhttp set proxy "http://proxy.example.com:8080"
-```
-
-4. 認証が必要なプロキシの場合は、後のモジュールでエージェントのインストール時に認証情報を指定します。
-
 ## タスク 4.1: Windows Server 2012/2012 R2 の追加設定
 
 > **注意**: このタスクは Windows Server 2012 または Windows Server 2012 R2 を使用する場合のみ実行してください。

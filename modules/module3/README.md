@@ -77,5 +77,3 @@ Microsoft Defender for Servers には以下のプランがあります：
 ## 次のステップ
 
 これで、Azure Arc に接続したサーバーに Microsoft Defender for Servers が正常に有効化されました。次のモジュールでは、テスト攻撃シナリオを実施して、セキュリティイベントを生成します。
-
-[モジュール 4: テスト攻撃シナリオの実施](../module4/README.md)に進みます。
