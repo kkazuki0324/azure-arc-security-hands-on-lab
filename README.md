@@ -45,8 +45,8 @@
 
 このハンズオンラボでは、以下の Azure リソースを使用します。これらのリソースには費用が発生する可能性があります：
 
-1. **仮想マシン（VM）**: ラボで使用する Windows Server 仮想マシン（約 5 時間の実行で約$5-10）
-2. **Azure Arc**: Azure Arc 接続マシンの料金（無料枠あり、詳細は[こちら](https://azure.microsoft.com/ja-jp/pricing/details/azure-arc/)
-3. **Microsoft Defender for Servers**: Defender for Servers Plan 2（約$0.75/サーバー/日）
+1. **仮想マシン（VM）**
+2. **Azure Arc**
+3. **Microsoft Defender for Servers**
 
-> **注意**: 上記の価格は概算であり、実際の料金は利用状況や契約条件によって異なる場合があります。最新の料金情報については、[Azure 料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。
+> **注意**: 最新の料金情報については、[Azure 料金計算ツール](https://azure.microsoft.com/ja-jp/pricing/calculator/)を参照してください。
