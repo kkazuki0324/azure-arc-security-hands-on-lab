@@ -14,7 +14,6 @@
 Microsoft Defender for Servers には以下のプランがあります：
 
 1. **Plan 1（基本機能）**: $4.906/サーバー/月
-
    - Defender for endpoint と統合し、EDR（検出と対応）を中心とした基本保護を提供
 
 2. **Plan 2（高度な機能）**: $14.60/サーバー/月
@@ -27,6 +26,8 @@ Microsoft Defender for Servers には以下のプランがあります：
 このラボでは **Plan 2** を使用します。
 
 ## タスク 1: Microsoft Defender for Cloud を有効化する
+
+> **Note**: 以下はサブスクリプション全体で Defender for Servers を有効化する手順です。特定のサーバーのみに有効化したい場合は、[Defender for Endpoint の適用（自動）- 個別適用の手順](https://github.com/msjpn-smecc-azure/handson-server-security/blob/main/docs/10-defender.md#defender-for-endpoint-%E3%81%AE%E9%81%A9%E7%94%A8%E8%87%AA%E5%8B%95) を参照してください。
 
 1. [Azure ポータル](https://portal.azure.com)にサインインします。
 2. 検索バーに「**Microsoft Defender for Cloud**」と入力し、表示されるサービスをクリックします。
@@ -41,11 +42,19 @@ Microsoft Defender for Servers には以下のプランがあります：
 
 ## タスク 2: Defender エージェントのインストール状態の確認
 
+> **Note**: Defender for Servers を有効化してから、エージェント（MDE.Windows 拡張機能）が自動的にインストールされるまで **15〜30 分程度**かかる場合があります。拡張機能が表示されない場合は、しばらく待ってからページを更新してください。
+
 1. Azure ポータルで「**Azure Arc**」→「**マシン - Azure Arc**」に移動します。
 2. 対象の Arc 対応サーバをクリックします。
 3. 左側のメニューの設定から「**拡張機能**」をクリックします。
 4. 次の拡張機能がインストールされていることを確認します：
    - MDE.Windows
+
+> **トラブルシューティング**: 30 分以上経過してもエージェントがインストールされない場合は、以下を確認してください：
+>
+> - サーバーがインターネットに接続できているか
+> - Azure Arc エージェントのステータスが「接続済み」になっているか
+> - Defender for Servers プランが正しく有効化されているか
 
 ![Defender エージェントの確認](../../images/module3/defender-extensions.png)
 
