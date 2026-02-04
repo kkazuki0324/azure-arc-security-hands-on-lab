@@ -80,6 +80,8 @@ hostname
 
 ### オプション A: Azure VM を使用した場合
 
+> **Note**: Azure Portal にアクセスするには Microsoft Edge が必要です。Windows Server 2022 以降では標準搭載されていますが、Windows Server 2019 以前をご使用の場合は、事前に [Microsoft Edge](https://www.microsoft.com/edge) をインストールしてください。
+
 1. ダウンロードまたはコピーしたスクリプト（OnboardingScript.ps1）を対象の仮想マシンで実行します。
 
 2. 対象サーバー の管理者 PowerShell で、スクリプトがある場所に移動します：
