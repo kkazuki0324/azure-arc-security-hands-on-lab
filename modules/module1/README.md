@@ -88,7 +88,8 @@
 
 - 管理者権限を持つアカウント
 
-> **注意**: Windows Server 2012/2012 R2 を使用する場合、以下の追加作業が必要です:
+> [!CAUTION]
+> Windows Server 2012/2012 R2 を使用する場合、以下の追加作業が必要です
 >
 > - WMF (Windows Management Framework) 5.1 のインストール
 > - サービススタック更新プログラム（SSU）のインストール
@@ -195,7 +196,8 @@ netsh winhttp show proxy
 
 ## タスク 4.1: Windows Server 2012/2012 R2 の追加設定
 
-> **注意**: このタスクは Windows Server 2012 または Windows Server 2012 R2 を使用する場合のみ実行してください。
+> [!CAUTION]
+> このタスクは Windows Server 2012 または Windows Server 2012 R2 を使用する場合のみ実行してください。
 
 Windows Server 2012/2012 R2 では、Azure Arc エージェントの要件を満たすために以下の追加設定が必要です：
 
